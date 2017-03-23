@@ -3,9 +3,26 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Click Tracker</title>
+	<script>
+		/*(function(){
+			var counter = 0;
+			function incCounter(){
+				++counter;
+				document.getElementById("divResult").innerHTML = counter;
+			}
+			function init(){
+				var btnTrack = document.getElementById("btnTrack");
+				btnTrack.addEventListener("click", incCounter);
+			}
+			window.addEventListener("DOMContentLoaded", init);
+		})();*/
+
+		(function(){var c=0,d=document,w=window,ael='addEventListener',dr='divResult',bt='btnTrack',ck='click',ge='getElementById',ih='innerHTML',dcl='DOMContentLoaded';function ic(){++c;d[ge](dr)[ih]=c;}function it(){var btb=d[ge](bt);btb[ael](ck,ic);}w[ael](dcl,it);})();
+		
+	</script>
 </head>
 <body>
-	<input type="button" value="Track" id="btnTrack">
-	<div id="divResult">[Result]</div>
+	<input type="button" value="Track" id="btnTrack" >
+	<div id="divResult" style="color : red">[Result]</div>
 </body>
 </html>
