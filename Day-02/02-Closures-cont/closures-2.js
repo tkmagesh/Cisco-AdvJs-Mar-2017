@@ -47,3 +47,9 @@ function memoize(algoFn){
 		return cache[key];
 	}
 }
+
+//usage
+var cachedAdd = memoize(function(x,y){
+   console.log('processing ', x , ' and ', y);
+   return x + y;
+});
