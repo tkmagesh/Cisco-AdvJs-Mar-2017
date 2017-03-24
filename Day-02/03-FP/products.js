@@ -14,8 +14,8 @@ function describe(title, fn){
 /*
 sort
 filter
-all
-any
+all - assignment
+any - assignment
 groupBy
 map
 aggregate
@@ -151,4 +151,38 @@ describe('filter', function(){
 			});
 		});
 	})
+});
+
+describe('groupBy', function(){
+	function groupBy(list, keySelector){
+		var result = {};
+		for(var index = 0; index < list.length; index++){
+			var key = keySelector(list[index]);
+			result[key] = result[key] || [];
+			result[key].push(list[index]);
+		}
+		return result;
+	}
+	function printGroup(groupedItem){
+		for(var key in groupedItem){
+			describe('Key - [' + key + ']', function(){
+				console.table(groupedItem[key]);
+			});
+		}
+	}
+	describe("Products by catgory", function(){
+		var categoryKeySelector = function(product){
+			return product.category;
+		};
+		var productsByCategory = groupBy(products, categoryKeySelector);
+		printGroup(productsByCategory);
+	});
+
+	describe("Products by cost", function(){
+		var costKeySelector = function(product){
+			return product.cost < 50 ? "affordable" : "costly";
+		};
+		var productsByCost = groupBy(products, costKeySelector);
+		printGroup(productsByCost);
+	});
 });
