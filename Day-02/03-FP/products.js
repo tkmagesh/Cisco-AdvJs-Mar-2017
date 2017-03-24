@@ -105,12 +105,50 @@ describe('filter', function(){
 					result.push(list[index]);
 			return result;
 		}
-		describe('Understocked products [ units < 50 ]', function(){
+		
+		
+		function negate(criteriaFn){
+			return function(){
+				return !criteriaFn.apply(this, arguments);
+			};
+		}
+		describe("Products By Units ", function(){
 			var underStockedProductCriteria = function(product){
 				return product.units < 50;
 			};
-			var UnderstockedProducts = filter(products, underStockedProductCriteria);
-			console.table(UnderstockedProducts)
+			describe('Understocked products [ units < 50 ]', function(){
+				var UnderstockedProducts = filter(products, underStockedProductCriteria);
+				console.table(UnderstockedProducts)
+			});
+			describe("Well stocked products [ units >= 50 ]", function(){
+				/*var wellStockedProductCriteria = function(product){
+					return !underStockedProductCriteria(product);
+				};*/
+				var wellStockedProductCriteria = negate(underStockedProductCriteria);
+
+				var wellStockedProducts = filter(products, wellStockedProductCriteria);
+				console.table(wellStockedProducts);
+			});
 		})
+		
+		describe("Products By Category", function(){
+			var stationaryProductCriteria = function(product){
+				return product.category === 'stationary';
+			};
+
+			describe("stationary products ", function(){
+				var stationaryProducts = filter(products, stationaryProductCriteria);
+				console.table(stationaryProducts);
+			});
+
+			describe("non stationary products ", function(){
+				/*var nonStationaryProductCriteria = function(product){
+					return !stationaryProductCriteria(product);
+				};*/
+				var nonStationaryProductCriteria = negate(stationaryProductCriteria);
+				var stationaryProducts = filter(products, nonStationaryProductCriteria);
+				console.table(stationaryProducts);
+			});
+		});
 	})
 });
