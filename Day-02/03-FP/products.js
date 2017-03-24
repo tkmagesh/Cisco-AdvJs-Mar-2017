@@ -18,7 +18,7 @@ all - assignment
 any - assignment
 groupBy
 map
-aggregate
+aggregate ( reduce )
 */
 
 describe("Default product list", function(){
@@ -186,3 +186,10 @@ describe('groupBy', function(){
 		printGroup(productsByCost);
 	});
 });
+
+function after(times, fn){
+	return function(){
+		if (--times <= 0)
+			return fn.apply(this, arguments);
+	}
+}
