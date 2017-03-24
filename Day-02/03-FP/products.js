@@ -86,7 +86,31 @@ describe('Sort', function(){
 
 describe('filter', function(){
 	describe('costly products [ cost > 50 ]', function(){
-		//sort;
+		function filterCostlyProducts(){
+			var result = [];
+			for(var index= 0; index < products.length; index++)
+				if (products[index].cost > 50)
+					result.push(products[index]);
+			return result;
+		}
+		var costlyProducts = filterCostlyProducts();
+		console.table(costlyProducts);
 		
 	});
+	describe('Any list by any criteria', function(){
+		function filter(list, criteriaFn){
+			var result = [];
+			for(var index= 0; index < list.length; index++)
+				if (criteriaFn(list[index]))
+					result.push(list[index]);
+			return result;
+		}
+		describe('Understocked products [ units < 50 ]', function(){
+			var underStockedProductCriteria = function(product){
+				return product.units < 50;
+			};
+			var UnderstockedProducts = filter(products, underStockedProductCriteria);
+			console.table(UnderstockedProducts)
+		})
+	})
 });
